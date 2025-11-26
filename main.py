@@ -12,24 +12,45 @@ USER_TOKEN = os.getenv('USER_TOKEN')
 CHANNEL_ID_NGUON_STR = os.getenv('CHANNEL_ID_NGUON')
 CHANNEL_ID_DICH_STR = os.getenv('CHANNEL_ID_DICH')
 
-CHANNEL_ID_NGUON = int(CHANNEL_ID_NGUON_STR) if CHANNEL_ID_NGUON_STR else None
-CHANNEL_ID_DICH = int(CHANNEL_ID_DICH_STR) if CHANNEL_ID_DICH_STR else None
+# Chuyển đổi channel IDs sang int nếu có
+CHANNEL_ID_NGUON = None
+CHANNEL_ID_DICH = None
 
-# Fallback về config.py nếu không có trong .env
+if CHANNEL_ID_NGUON_STR:
+    try:
+        CHANNEL_ID_NGUON = int(CHANNEL_ID_NGUON_STR)
+    except (ValueError, TypeError):
+        print(f"⚠️ Cảnh báo: CHANNEL_ID_NGUON không hợp lệ: {CHANNEL_ID_NGUON_STR}")
+
+if CHANNEL_ID_DICH_STR:
+    try:
+        CHANNEL_ID_DICH = int(CHANNEL_ID_DICH_STR)
+    except (ValueError, TypeError):
+        print(f"⚠️ Cảnh báo: CHANNEL_ID_DICH không hợp lệ: {CHANNEL_ID_DICH_STR}")
+
+# Fallback về config.py nếu không có trong environment variables
 if not USER_TOKEN or not CHANNEL_ID_NGUON or not CHANNEL_ID_DICH:
     try:
         from config import USER_TOKEN as CFG_TOKEN, CHANNEL_ID_NGUON as CFG_NGUON, CHANNEL_ID_DICH as CFG_DICH
-        USER_TOKEN = USER_TOKEN or CFG_TOKEN
-        CHANNEL_ID_NGUON = CHANNEL_ID_NGUON or CFG_NGUON
-        CHANNEL_ID_DICH = CHANNEL_ID_DICH or CFG_DICH
+        if not USER_TOKEN:
+            USER_TOKEN = CFG_TOKEN
+            print("ℹ️ Đã sử dụng USER_TOKEN từ config.py")
+        if not CHANNEL_ID_NGUON:
+            CHANNEL_ID_NGUON = CFG_NGUON
+            print("ℹ️ Đã sử dụng CHANNEL_ID_NGUON từ config.py")
+        if not CHANNEL_ID_DICH:
+            CHANNEL_ID_DICH = CFG_DICH
+            print("ℹ️ Đã sử dụng CHANNEL_ID_DICH từ config.py")
     except ImportError:
-        pass
+        print("ℹ️ Không tìm thấy config.py, chỉ sử dụng environment variables")
 
 # Kiểm tra token và channel IDs
 if not USER_TOKEN:
-    raise ValueError("USER_TOKEN không được tìm thấy! Vui lòng tạo file .env hoặc config.py")
-if not CHANNEL_ID_NGUON or not CHANNEL_ID_DICH:
-    raise ValueError("CHANNEL_ID_NGUON và CHANNEL_ID_DICH không được tìm thấy! Vui lòng tạo file .env hoặc config.py") 
+    raise ValueError("USER_TOKEN không được tìm thấy! Vui lòng thêm USER_TOKEN vào Environment Variables trên Railway hoặc tạo file config.py")
+if not CHANNEL_ID_NGUON:
+    raise ValueError("CHANNEL_ID_NGUON không được tìm thấy! Vui lòng thêm CHANNEL_ID_NGUON vào Environment Variables trên Railway hoặc tạo file config.py")
+if not CHANNEL_ID_DICH:
+    raise ValueError("CHANNEL_ID_DICH không được tìm thấy! Vui lòng thêm CHANNEL_ID_DICH vào Environment Variables trên Railway hoặc tạo file config.py") 
 
 # Địa chỉ API Endpoint TÙY CHỈNH để gửi tin nhắn
 
