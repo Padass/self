@@ -59,7 +59,7 @@ KEYWORD_RESPONSES = {
     "bão": "**Bão** xuất hiện!! có thể xuất hiện biến thể **[ Sét ]**",
     "sương mù": "**Sương mù** xuất hiện!! có thể xuất hiện biến thể **[ Sương ]**",
     "sương sớm": "**Sương sớm** xuất hiện!! có thể xuất hiện biến thể **[ Sương ]**",
-    ":gio:": "**Gió** xuất hiện!! có thể xuất hiện biến thể **[ Gió ]**",
+    "gio": "**Gió** xuất hiện!! có thể xuất hiện biến thể **[ Gió ]**",
     "Nắng nóng": "**Nắng nóng** xuất hiện!! có thể xuất hiện biến thể **[ Khô ]**",
     "Gió cát": "**Gió cát** xuất hiện!! có thể xuất hiện biến thể **[ Cát ]**",
 }
@@ -94,14 +94,19 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    # Debug: In thông tin tin nhắn nhận được
+    print(f"📨 Nhận tin nhắn từ {message.author} trong kênh {message.channel.id}: {message.content[:50]}")
     
+    # Tránh lặp vô hạn và chỉ xử lý kênh nguồn
     if message.author.id == client.user.id:
         print("⏭️ Bỏ qua: Tin nhắn từ chính bot")
         return
     
-    if message.channel.id == CHANNEL_ID_NGUON:
-        print(f"✅ Xử lý tin nhắn từ kênh nguồn: {message.content}")
+    if message.channel.id != CHANNEL_ID_NGUON:
+        print(f"⏭️ Bỏ qua: Không phải kênh nguồn (nhận: {message.channel.id}, mong đợi: {CHANNEL_ID_NGUON})")
+        return
 
+    print(f"✅ Xử lý tin nhắn từ kênh nguồn: {message.content}")
     
     raw_content = message.content 
     content_lower = raw_content.lower() 
