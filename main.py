@@ -44,12 +44,12 @@ HEADERS = {
 
 # BẢN ĐỒ ÁNH XẠ TỪ KHÓA VÀ PHẢN HỒI
 KEYWORD_RESPONSES = {
-    "dưa hấu": "**Dưa hấu** đang bán trong Shop!!\n|| <@&1443097923431694377> ||",
-    "bí ngô": "**Bí ngô** đang bán trong Shop!!\n|| <@&1443097923431694377> ||",
-    "xoài": "**Xoài** đang bán trong Shop!!\n|| <@&1443097923431694377> ||",
-    "táo đường": "**Táo đường** đang bán trong Shop!!\n|| <@&1443097923431694377> ||",
-    "đậu": "**Đậu** đang bán trong Shop!!\n|| <@&1443097923431694377> ||",
-    "khế": "**Khế** đang bán trong Shop!!\n|| <@&1443097923431694377> ||",
+    "dưa hấu": "**Dưa hấu** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
+    "bí ngô": "**Bí ngô** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
+    "xoài": "**Xoài** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
+    "táo đường": "**Táo đường** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
+    "đậu": "**Đậu** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
+    "khế": "**Khế** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "vòi xanh": "**Vòi Xanh** đang bán trong Shop!!\n|| <@&1443098706265243648> ||",
     "vòi đỏ": "**Vòi Đỏ** đang bán trong Shop!!\n|| <@&1443098706265243648> ||",
     "Đơn hàng": "**Đơn hàng** đã được làm mới!!\n|| <@&1443098706265243648> ||",
