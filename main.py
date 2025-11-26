@@ -52,17 +52,17 @@ KEYWORD_RESPONSES = {
     "khế": "**Khế** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "vòi xanh": "**Vòi Xanh** đang bán trong Shop!!\n|| <@&1443098706265243648> ||",
     "vòi đỏ": "**Vòi Đỏ** đang bán trong Shop!!\n|| <@&1443098706265243648> ||",
-    "Đơn hàng": "**Đơn hàng** đã được làm mới!!\n|| <@&1443098706265243648> ||",
-    "Ánh Trăng": "**Ánh Trăng** xuất hiện!! có thể xuất hiện biến thể **[ Ánh Trăng ]**\n|| <@&1443097923431694377> ||",
-    "Cực Quang": "**Cực Quang** xuất hiện!! có thể xuất hiện biến thể **[ Cực Quang ]**\n|| <@&1443097923431694377> ||",       
-    "Gió Cát": "**Gió Cát** xuất hiện!! có thể xuất hiện biến thể **[ Cát ]**\n|| <@&1443097923431694377> ||",
+    "đơn hàng": "**Đơn hàng** đã được làm mới!!\n|| <@&1443098706265243648> ||",
+    "ấnh trăng": "**Ánh Trăng** xuất hiện!! có thể xuất hiện biến thể **[ Ánh Trăng ]**\n|| <@&1443097923431694377> ||",
+    "cực quang": "**Cực Quang** xuất hiện!! có thể xuất hiện biến thể **[ Cực Quang ]**\n|| <@&1443097923431694377> ||",       
+    "gió cát": "**Gió Cát** xuất hiện!! có thể xuất hiện biến thể **[ Cát ]**\n|| <@&1443097923431694377> ||",
     "bão": "**Bão** xuất hiện!! có thể xuất hiện biến thể **[ Sét ]**\n|| <@&1443097923431694377> ||",
     "mưa": "**Mưa** xuất hiện!! có thể xuất hiện biến thể **[ Ẩm ướt ]**\n|| <@&1443097923431694377> ||",   
     "sương mù": "**Sương mù** xuất hiện!! có thể xuất hiện biến thể **[ Sương ]**\n|| <@&1443097923431694377> ||",
     "sương sớm": "**Sương sớm** xuất hiện!! có thể xuất hiện biến thể **[ Sương ]**\n|| <@&1443097923431694377> ||",
     "gio": "**Gió** xuất hiện!! có thể xuất hiện biến thể **[ Gió ]**\n|| <@&1443097923431694377> ||",
-    "Nắng nóng": "**Nắng nóng** xuất hiện!! có thể xuất hiện biến thể **[ Khô ]**\n|| <@&1443097923431694377> ||",
-    "Gió cát": "**Gió cát** xuất hiện!! có thể xuất hiện biến thể **[ Cát ]**\n|| <@&1443097923431694377> ||",
+    "nắng nóng": "**Nắng nóng** xuất hiện!! có thể xuất hiện biến thể **[ Khô ]**\n|| <@&1443097923431694377> ||",
+    "gió cát": "**Gió cát** xuất hiện!! có thể xuất hiện biến thể **[ Cát ]**\n|| <@&1443097923431694377> ||",
 }
 
 # =========================================================
