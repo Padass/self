@@ -56,8 +56,9 @@ KEYWORD_RESPONSES = {
     "Ánh Trăng": "**Ánh Trăng** xuất hiện!! có thể xuất hiện biến thể **[ Ánh Trăng ]** || <@&1443097923431694377> ||",
     "Cực Quang": "**Cực Quang** xuất hiện!! có thể xuất hiện biến thể **[ Cực Quang ]** || <@&1443097923431694377> ||",       
     "Gió Cát": "**Gió Cát** xuất hiện!! có thể xuất hiện biến thể **[ Cát ]** || <@&1443097923431694377> ||",
-    "mưa": "**Mưa** xuất hiện!! có thể xuất hiện biến thể **[ Ẩm ướt ]** || <@&1443097923431694377> ||",
     "bão": "**Bão** xuất hiện!! có thể xuất hiện biến thể **[ Sét ]** || <@&1443097923431694377> ||",
+    "mưa": "**Mưa** xuất hiện!! có thể xuất hiện biến thể **[ Ẩm ướt ]** || <@&1443097923431694377> ||",
+    
     "sương mù": "**Sương mù** xuất hiện!! có thể xuất hiện biến thể **[ Sương ]** || <@&1443097923431694377> ||",
     "sương sớm": "**Sương sớm** xuất hiện!! có thể xuất hiện biến thể **[ Sương ]** || <@&1443097923431694377> ||",
     "gio": "**Gió** xuất hiện!! có thể xuất hiện biến thể **[ Gió ]** || <@&1443097923431694377> ||",
