@@ -11,9 +11,11 @@ load_dotenv()
 USER_TOKEN = os.getenv('USER_TOKEN')
 CHANNEL_ID_NGUON_STR = os.getenv('CHANNEL_ID_NGUON')
 CHANNEL_ID_DICH_STR = os.getenv('CHANNEL_ID_DICH')
+ALLOWED_USER_ID_STR = os.getenv('ALLOWED_USER_ID')
 
 CHANNEL_ID_NGUON = int(CHANNEL_ID_NGUON_STR) if CHANNEL_ID_NGUON_STR else None
 CHANNEL_ID_DICH = int(CHANNEL_ID_DICH_STR) if CHANNEL_ID_DICH_STR else None
+ALLOWED_USER_ID = int(ALLOWED_USER_ID_STR) if ALLOWED_USER_ID_STR else None
 
 # Fallback về config.py nếu không có trong .env
 if not USER_TOKEN or not CHANNEL_ID_NGUON or not CHANNEL_ID_DICH:
@@ -22,6 +24,11 @@ if not USER_TOKEN or not CHANNEL_ID_NGUON or not CHANNEL_ID_DICH:
         USER_TOKEN = USER_TOKEN or CFG_TOKEN
         CHANNEL_ID_NGUON = CHANNEL_ID_NGUON or CFG_NGUON
         CHANNEL_ID_DICH = CHANNEL_ID_DICH or CFG_DICH
+        try:
+            from config import ALLOWED_USER_ID as CFG_ALLOWED_USER_ID
+            ALLOWED_USER_ID = ALLOWED_USER_ID or CFG_ALLOWED_USER_ID
+        except ImportError:
+            pass
     except ImportError:
         pass
 
@@ -106,6 +113,11 @@ async def on_message(message):
     
     if message.channel.id != CHANNEL_ID_NGUON:
         print(f"⏭️ Bỏ qua: Không phải kênh nguồn (nhận: {message.channel.id}, mong đợi: {CHANNEL_ID_NGUON})")
+        return
+    
+    # Kiểm tra người gửi (nếu có cấu hình ALLOWED_USER_ID)
+    if ALLOWED_USER_ID and message.author.id != ALLOWED_USER_ID:
+        print(f"⏭️ Bỏ qua: Người gửi không hợp lệ (nhận: {message.author.id}, mong đợi: {ALLOWED_USER_ID})")
         return
 
     print(f"✅ Xử lý tin nhắn từ kênh nguồn: {message.content}")
