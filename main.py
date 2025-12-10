@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import requests
 import os
+import asyncio
+import time
 from dotenv import load_dotenv
 
 # Load biến môi trường từ file .env
@@ -79,19 +81,34 @@ KEYWORD_RESPONSES = {
 
 client = discord.Client()
 
+# Biến để theo dõi số lần retry
+retry_count = 0
+max_retries = 5
+
 def gui_tin_nhan_qua_http(channel_id, content):
-    """Gửi tin nhắn đến API Endpoint tùy chỉnh."""
+    """Gửi tin nhắn đến API Endpoint tùy chỉnh với retry logic."""
     url = API_URL_GUI_TIN.format(channel_id=channel_id)
     data = {'content': content}
     
-    try:
-        response = requests.post(url, headers=HEADERS, json=data)
-        if response.status_code == 200:
-            print(f"✅ Gửi thành công tin nhắn tới kênh {channel_id}.")
-        else:
-            print(f"❌ Lỗi gửi tin {response.status_code}: {response.text}")
-    except requests.exceptions.RequestException as e:
-        print(f"Lỗi kết nối HTTP khi gửi tin: {e}")
+    for attempt in range(3):  # Thử tối đa 3 lần
+        try:
+            response = requests.post(url, headers=HEADERS, json=data, timeout=10)
+            if response.status_code == 200:
+                print(f"✅ Gửi thành công tin nhắn tới kênh {channel_id}.")
+                return
+            elif response.status_code == 429:  # Rate limit
+                print(f"⚠️ Rate limit! Đợi 5 giây...")
+                time.sleep(5)
+                continue
+            else:
+                print(f"❌ Lỗi gửi tin {response.status_code}: {response.text}")
+        except requests.exceptions.RequestException as e:
+            print(f"Lỗi kết nối HTTP (lần {attempt + 1}): {e}")
+            if attempt < 2:  # Không phải lần cuối
+                print(f"Đợi {2 ** attempt} giây trước khi thử lại...")
+                time.sleep(2 ** attempt)
+    
+    print("❌ Không thể gửi tin nhắn sau 3 lần thử!")
 
 # =========================================================
 #             🤖 LOGIC SELF-BOT
@@ -99,7 +116,19 @@ def gui_tin_nhan_qua_http(channel_id, content):
 
 @client.event
 async def on_ready():
-    print(f'Tài khoản tự động đã đăng nhập với tên: {client.user} (Self-Bot Activated)')
+    global retry_count
+    retry_count = 0  # Reset retry count khi kết nối thành công
+    print(f'✅ Tài khoản tự động đã đăng nhập với tên: {client.user} (Self-Bot Activated)')
+    print(f'📡 Đang theo dõi kênh nguồn: {CHANNEL_ID_NGUON}')
+    print(f'📤 Sẽ gửi tin đến kênh đích: {CHANNEL_ID_DICH}')
+
+@client.event
+async def on_disconnect():
+    print("⚠️ Mất kết nối với Discord!")
+
+@client.event
+async def on_resumed():
+    print("🔄 Đã khôi phục kết nối với Discord!")
 
 @client.event
 async def on_message(message):
@@ -142,14 +171,42 @@ async def on_message(message):
         print(f"🔍 Không tìm thấy từ khóa nào trong: {content_lower}")
         
 # =========================================================
-#             ▶️ KHỞI CHẠY BOT
+#             ▶️ KHỞI CHẠY BOT VỚI AUTO-RETRY
 # =========================================================
 
-try:
-    print("Đang khởi động Self-Bot...")
-    # Chạy client với Token của người dùng
-    client.run(USER_TOKEN) 
-except discord.errors.LoginFailure:
-    print("LỖI: Đăng nhập thất bại! Vui lòng kiểm tra lại USER_TOKEN và API URL.")
-except Exception as e:
-    print(f"LỖI KHÔNG XÁC ĐỊNH: {e}")
+async def run_bot_with_retry():
+    """Chạy bot với auto-retry khi bị disconnect."""
+    global retry_count
+    
+    while retry_count < max_retries:
+        try:
+            print(f"🚀 Đang khởi động Self-Bot... (Lần thử: {retry_count + 1})")
+            await client.start(USER_TOKEN)
+        except discord.errors.LoginFailure:
+            print("❌ LỖI: Đăng nhập thất bại! Kiểm tra lại USER_TOKEN.")
+            break
+        except discord.ConnectionClosed:
+            retry_count += 1
+            if retry_count < max_retries:
+                wait_time = min(60, 2 ** retry_count)  # Exponential backoff, tối đa 60s
+                print(f"🔄 Kết nối bị đóng. Thử lại sau {wait_time} giây... ({retry_count}/{max_retries})")
+                await asyncio.sleep(wait_time)
+            else:
+                print("❌ Đã thử quá nhiều lần. Dừng bot.")
+                break
+        except Exception as e:
+            retry_count += 1
+            if retry_count < max_retries:
+                wait_time = min(60, 2 ** retry_count)
+                print(f"❌ LỖI: {e}")
+                print(f"🔄 Thử lại sau {wait_time} giây... ({retry_count}/{max_retries})")
+                await asyncio.sleep(wait_time)
+            else:
+                print("❌ Đã thử quá nhiều lần. Dừng bot.")
+                break
+
+if __name__ == "__main__":
+    try:
+        asyncio.run(run_bot_with_retry())
+    except KeyboardInterrupt:
+        print("\n👋 Bot đã được dừng bởi người dùng.")
