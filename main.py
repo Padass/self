@@ -59,6 +59,7 @@ KEYWORD_RESPONSES = {
     "táo đường": "**Táo đường** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "đậu": "**Đậu** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "khế": "**Khế** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
+    "nho": "**Nho** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "vòi xanh": "**Vòi Xanh** đang bán trong Shop!!\n|| <@&1443098706265243648> ||",
     "vòi đỏ": "**Vòi Đỏ** đang bán trong Shop!!\n|| <@&1443098706265243648> ||",
     "đơn hàng": "**Đơn hàng** đã được làm mới!!\n|| <@&1443098706265243648> ||",
