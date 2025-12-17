@@ -55,6 +55,7 @@ HEADERS = {
 KEYWORD_RESPONSES = {
     "dưa hấu": "**Dưa hấu** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "bí ngô": "**Bí ngô** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
+    "dừa": "**dừa** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "xoài": "**Xoài** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "táo đường": "**Táo đường** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
     "đậu": "**Đậu** đang bán trong Shop!!\n|| <@&1443099046448332821> ||",
